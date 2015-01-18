@@ -15,6 +15,8 @@ complete <- function(directory, id = 1:332) {
         ## where 'id' is the monitor ID number and 'nobs' is the
         ## number of complete cases
         files<-sprintf("%s/%03d.csv",directory,id)
-        frames<-lapply(files,read.csv)
-        frames
+        numCases<-lapply(files,function(x) nrow(na.omit(read.csv(x))))
+        
+        data.frame(id,nobs=unlist(numCases))
+        
 }
